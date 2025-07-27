@@ -1,0 +1,26 @@
+const express = require("express");
+const mongoose = require("mongoose");
+const app = express();
+const cors = require("cors");
+const userRoutes = require("./routes/user.routes");
+const categoryRoutes = require("./routes/category.routes");
+const articleRoutes = require("./routes/article.routes");
+const offRoutes = require("./routes/off.routes");
+const path = require("path");
+const productRoutes = require("./routes/product.routes");
+const orderRoutes = require("./routes/order.routes");
+const notifRoutes = require("./routes/notif.routes");
+require("dotenv").config();
+app.use(express.json());
+app.use(cors());
+app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
+app.use("/user", userRoutes);
+app.use("/category", categoryRoutes);
+app.use("/article", articleRoutes);
+app.use("/off", offRoutes);
+app.use("/product", productRoutes);
+app.use("/order", orderRoutes);
+app.use("/notif", notifRoutes);
+mongoose.connect(process.env.DATABASE_URL);
+
+app.listen(process.env.PORT);
